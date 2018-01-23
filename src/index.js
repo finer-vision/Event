@@ -24,8 +24,10 @@ class Event {
      */
     removeAllListeners() {
         for (let i = this.listeners.length - 1; i >= 0; i--) {
-            this.removeListener(this.listeners[i].id);
+            this.listeners.splice(i, 1);
         }
+
+        this.listeners.map(listener => this.removeListener(listener.id));
     }
 
     /**
@@ -34,7 +36,11 @@ class Event {
      * @param {Number} listener
      */
     removeListener(listener) {
-        this.listeners.splice(listener, 1);
+        for (let i = this.listeners.length - 1; i >= 0; i--) {
+            if (this.listeners[i].id === listener) {
+                this.listeners.splice(i, 1);
+            }
+        }
     }
 
     /**
@@ -43,8 +49,11 @@ class Event {
      * @param {Object=} data
      */
     emit(event, data) {
-        const events = this.listeners.filter(e => e.event === event);
-        events.map(e => e.func(data));
+        this.listeners.map(listener => {
+            if (listener.event === event) {
+                listener.func(data);
+            }
+        });
     }
 }
 

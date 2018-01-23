@@ -1,6 +1,6 @@
 {
   "name": "fv-event",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "JavaScript Event System",
   "main": "src/index.js",
   "scripts": {
