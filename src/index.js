@@ -1,48 +1,49 @@
 class Event {
     constructor() {
         /**
-         * Holds all of the events.
+         * Holds all listeners.
          * @type {Array}
          */
-        this.events = [];
+        this.listeners = [];
     }
 
     /**
-     * Add the given event listener to the events array.
+     * Add the given event listener to the listeners array.
      * @param {String} event
      * @param {Function} func
      * @returns {Number}
      */
     addListener(event, func) {
-        this.events.push({event, func});
-        return this.events.length - 1;
+        const id = Date.now();
+        this.listeners.push({event, func, id});
+        return id;
     }
 
     /**
      * Remove all events from the events array.
      */
-    removeAllEvents() {
-        for (let i = this.events.length - 1; i >= 0; i--) {
-            this.removeListener(i);
+    removeAllListeners() {
+        for (let i = this.listeners.length - 1; i >= 0; i--) {
+            this.removeListener(this.listeners[i].id);
         }
     }
 
     /**
-     * Remove the given listener from the events array.
+     * Remove the given listener from the listeners array.
      *
      * @param {Number} listener
      */
     removeListener(listener) {
-        this.events.splice(listener, 1);
+        this.listeners.splice(listener, 1);
     }
 
     /**
-     * Emit all matching events
+     * Emit all matching listeners.
      * @param {String} event
      * @param {Object=} data
      */
     emit(event, data) {
-        const events = this.events.filter(e => e.event === event);
+        const events = this.listeners.filter(e => e.event === event);
         events.map(e => e.func(data));
     }
 }
