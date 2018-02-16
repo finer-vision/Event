@@ -1,8 +1,8 @@
 {
   "name": "fv-event",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "JavaScript Event System",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "node_modules/babel-cli/bin/babel.js src/ -d build"
